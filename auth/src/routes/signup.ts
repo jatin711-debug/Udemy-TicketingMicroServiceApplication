@@ -25,11 +25,9 @@ router.post('/api/users/signup',[
     if(existingUser){
         throw new BadRequestError('Email In Use');
     }
-
     const user = User.build({email, password});
     await user.save();
-
-    res.status(200).send(user)
+    res.status(200).send(user);
 });
 
 export {router as signupRouter};
