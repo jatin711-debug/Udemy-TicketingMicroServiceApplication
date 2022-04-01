@@ -1,6 +1,7 @@
 import express, { Request,Response } from 'express';
 import { body, validationResult } from 'express-validator';
 import { User } from '../Models/user';
+import jwt from 'jsonwebtoken';
 import { RequestValidationError} from '../errors/request-validation-error';
 import { BadRequestError } from '../errors/bad-request-error';
 import { DatabaseConnectionError } from '../errors/database-connection-error';
@@ -27,6 +28,15 @@ router.post('/api/users/signup',[
     }
     const user = User.build({email, password});
     await user.save();
+
+    const userJwt = jwt.sign({
+        id:user.id,
+        email:user.email
+    },'opa');
+
+    req.session = {
+        jwt:userJwt,
+    }
     res.status(200).send(user);
 });
 
