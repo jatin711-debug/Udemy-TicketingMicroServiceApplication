@@ -30,6 +30,11 @@ app.all('*',async ()=>{
 app.use(errorHandler);
 
 const start = async ()=>{
+
+    if(!process.env.JWT_KEY){
+        throw new Error('No JWT Key Found')
+    }
+
     try {
         await mongoose.connect('mongodb://auth-mongo-service:27017/auth');
         console.log("Connected To MongoDB");
