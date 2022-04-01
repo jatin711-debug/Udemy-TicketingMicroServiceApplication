@@ -4,7 +4,7 @@ import { User } from '../Models/user';
 import jwt from 'jsonwebtoken';
 import { RequestValidationError} from '../errors/request-validation-error';
 import { BadRequestError } from '../errors/bad-request-error';
-import { DatabaseConnectionError } from '../errors/database-connection-error';
+//import { DatabaseConnectionError } from '../errors/database-connection-error';
 
 const router = express.Router();
 
