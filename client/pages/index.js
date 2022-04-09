@@ -1,3 +1,7 @@
-export default () => {
+export default Landingpage = () => {
     return "Hello";
+}
+
+Landingpage.getInitialProps = () => {
+    
 }
