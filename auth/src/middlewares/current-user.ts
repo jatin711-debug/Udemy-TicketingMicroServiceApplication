@@ -29,7 +29,7 @@ export const currentUser = (
         const payload = jwt.verify(req.session.jwt,process.env.JWT_KEY!) as UserPayload;
         req.currentUser = payload;
     } catch (error) {
-        
+        console.log('Cannot Setup Playload');
     }
     next();
 }

@@ -3,7 +3,6 @@ import { body } from 'express-validator';
 import { User } from '../Models/user';
 import jwt from 'jsonwebtoken';
 import { validateRequest } from '../middlewares/validate-request';
-import { RequestValidationError} from '../errors/request-validation-error';
 import { BadRequestError } from '../errors/bad-request-error';
 const router = express.Router();
 router.post('/api/users/signup',[
@@ -17,7 +16,6 @@ router.post('/api/users/signup',[
     ],
     validateRequest,
     async (req: Request, res: Response) => {
-
     const { email, password } = req.body;
     const existingUser = await User.findOne({ email:email });
     if(existingUser){
