@@ -2,8 +2,7 @@ import express, { Request,Response } from 'express';
 import { body } from 'express-validator';
 import { User } from '../Models/user';
 import jwt from 'jsonwebtoken';
-import { validateRequest } from '../middlewares/validate-request';
-import { BadRequestError } from '../errors/bad-request-error';
+import { validateRequest, BadRequestError } from '@johnny711/common';
 const router = express.Router();
 router.post('/api/users/signup',[
     body('email')
