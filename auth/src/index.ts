@@ -32,9 +32,12 @@ const start = async ()=>{
     if(!process.env.JWT_KEY){
         throw new Error('No JWT Key Found')
     }
+    if(!process.env.MongoDB_URI){
+        throw new Error('No MONGO_URI');
+    }
 
     try {
-        await mongoose.connect('mongodb://auth-mongo-service:27017/auth');
+        await mongoose.connect(process.env.MongoDB_URI);
         console.log("Connected To MongoDB");
     } catch (error) {
         console.error(error);

@@ -1,32 +1,25 @@
-import express from 'express';
-import 'express-async-errors';
-import { json } from 'body-parser';
-import cookieSession from 'cookie-session';
 import mongoose from 'mongoose';
-const app = express();
-app.set('trust proxy',true);
-app.use(json());
-app.use(cookieSession({
-    signed:false,
-    secure:true
-    })
-);
 
-const start = async ()=>{
-    if(!process.env.MongoDB_URI){
-        throw new Error('No MONGO_URI');
-    }
+import { app } from './app';
 
-    try {
-        await mongoose.connect(process.env.MongoDB_URI);
-        console.log("Connected To MongoDB");
-    } catch (error) {
-        console.error(error);
-    }
+const start = async () => {
+  if (!process.env.JWT_KEY) {
+    throw new Error('JWT_KEY must be defined');
+  }
+  if (!process.env.MongoDB_URI) {
+    throw new Error('MONGO_URI must be defined');
+  }
 
-    app.listen(3000,()=>{
-        console.log("Listening on 3000!!!!!!");
-    });
-}
+  try {
+    await mongoose.connect(process.env.MongoDB_URI);
+    console.log('Connected to MongoDb');
+  } catch (err) {
+    console.error(err);
+  }
+
+  app.listen(3000, () => {
+    console.log('Listening on port 3000!!!!!!!!');
+  });
+};
 
 start();
