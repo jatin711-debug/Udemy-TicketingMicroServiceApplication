@@ -16,7 +16,7 @@ spec:
         - name: tickets
           image: us.gcr.io/ticketing-project-344020/tickets
           env: 
-            - name: MongoDB_URI
+            - name: Mongo_URI
               value: mongodb://tickets-mongo-service:27017/tickets
             - name: JWT_KEY
               valueFrom:
