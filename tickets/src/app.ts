@@ -14,10 +14,11 @@ app.use(json());
 app.use(
   cookieSession({
     signed: false,
-    secure: true,
+    secure: process.env.NODE_ENV !== 'test',
   })
 );
 app.use(currentUser);
+
 app.use(createTicketRouter);
 app.use(showTicketRouter);
 app.use(indexTicketRouter);
