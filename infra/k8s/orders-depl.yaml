@@ -1,48 +1,46 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tickets-deployment
+  name: orders-depl
 spec:
   replicas: 1
-  selector: 
+  selector:
     matchLabels:
-      app: tickets
+      app: orders
   template:
     metadata:
       labels:
-        app: tickets
+        app: orders
     spec:
       containers:
-        - name: tickets
-          image: us.gcr.io/ticketing-project-344020/tickets
-          env: 
-            - name: MONGO_URI
-              value: mongodb://tickets-mongo-service:27017/tickets
-            - name: NATS_URL
-              value: http://nats-srv:4222
-            - name: NATS_CLUSTER_ID
-              value: ticketing
+        - name: orders
+          image: us.gcr.io/ticketing-project-344020/orders
+          env:
             - name: NATS_CLIENT_ID
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              value: ticketing
+            - name: MONGO_URI
+              value: 'mongodb://orders-mongo-srv:27017/orders'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
                   name: jwt-secret
                   key: JWT_KEY
-
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: tickets-srv
+  name: orders-srv
 spec:
   selector:
-    app: tickets
+    app: orders
   ports:
-    - name: tickets
+    - name: orders
       protocol: TCP
       port: 3000
-      targetPort: 3000  
-
+      targetPort: 3000
